@@ -41,12 +41,13 @@ int disable_interrupts() {
     return old;
 }
 
-void do_interrupts(unsigned int status, unsigned int cause, unsigned int* sp) {
+
+void do_interrupts(unsigned int status, unsigned int cause, context* pt_context) {
     int i;
     int index = cause >> 8;
     for (i = 0; i < 8; i++) {
         if ((index & 1) && interrupts[i] != 0) {
-            interrupts[i](status, cause, sp);
+            interrupts[i](status, cause, pt_context);
         }
         index >>= 1;
     }

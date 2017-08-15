@@ -11,16 +11,12 @@ void init_syscall() {
     register_syscall(4, syscall4);
 }
 
-void syscall(unsigned int status, unsigned int cause, unsigned int* sp) {
-    unsigned int a0, a1, a2, a3, v0;
-    a0 = *(sp + 4);
-    a1 = *(sp + 5);
-    a2 = *(sp + 6);
-    a3 = *(sp + 7);
-    v0 = *(sp + 2) & 255;
-    *(sp + 0) += 4;  // EPC
-    if (syscalls[v0]) {
-        syscalls[v0](a0, a1, a2, a3);
+void syscall(unsigned int status, unsigned int cause, context* pt_context) {
+    unsigned int code;
+    code = pt_context->v0;
+    pt_context->epc += 4;
+    if (syscalls[code]) {
+        syscalls[code](status, cause, pt_context);
     }
 }
 

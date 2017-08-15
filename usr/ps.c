@@ -19,6 +19,33 @@ void test_syscall4() {
         "nop\n\t");
 }
 
+void test_proc() {
+    unsigned int timestamp;
+    unsigned int currTime;
+    unsigned int data;
+    asm volatile("mfc0 %0, $9, 6\n\t" : "=r"(timestamp));
+    data = timestamp & 0xff;
+    while (1) {
+        asm volatile("mfc0 %0, $9, 6\n\t" : "=r"(currTime));
+        if (currTime - timestamp > 100000000) {
+            timestamp += 100000000;
+            *((unsigned int *)0xbfc09018) = data;
+        }
+    }
+}
+
+int proc_demo_create() {
+    int asid = pc_peek();
+    if (asid < 0) {
+        kernel_puts("Failed to allocate pid.\n", 0xfff, 0);
+        return 1;
+    }
+    unsigned int init_gp;
+    asm volatile("la %0, _gp\n\t" : "=r"(init_gp));
+    pc_create(asid, test_proc, (unsigned int)kmalloc(4096), init_gp, "test");
+    return 0;
+}
+
 void ps() {
     kernel_printf("Press any key to enter shell.\n");
     kernel_getchar();
@@ -108,6 +135,21 @@ void parse_cmd() {
         buddy_info();
     } else if (kernel_strcmp(ps_buffer, "mmtest") == 0) {
         kernel_printf("kmalloc : %x, size = 1KB\n", kmalloc(1024));
+    } else if (kernel_strcmp(ps_buffer, "ps") == 0) {
+        result = print_proc();
+        kernel_printf("ps return with %d\n", result);
+    } else if (kernel_strcmp(ps_buffer, "kill") == 0) {
+        int pid = param[0] - '0';
+        kernel_printf("Killing process %d\n", pid);
+        result = pc_kill(pid);
+        kernel_printf("kill return with %d\n", result);
+    } else if (kernel_strcmp(ps_buffer, "time") == 0) {
+        unsigned int init_gp;
+        asm volatile("la %0, _gp\n\t" : "=r"(init_gp));
+        pc_create(2, system_time_proc, (unsigned int)kmalloc(4096), init_gp, "time");
+    } else if (kernel_strcmp(ps_buffer, "proc") == 0) {
+        result = proc_demo_create();
+        kernel_printf("proc return with %d\n", result);
     } else {
         kernel_puts(ps_buffer, 0xfff, 0);
         kernel_puts(": command not found\n", 0xfff, 0);

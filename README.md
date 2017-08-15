@@ -1,12 +1,12 @@
-# ZJUNIX 实验5 内存管理
+# ZJUNIX 实验6 进程管理
 
-![ZJUNIX Experiments](https://img.shields.io/badge/ZJUNIX-Experiment5-blue.svg)
+![ZJUNIX Experiments](https://img.shields.io/badge/ZJUNIX-Experiment6-blue.svg)
 
 ## 实验目的
 
-- 理解操作系统内存管理的原理
-- 实现 ZJUNIX 的内存管理模块
-- 编写测试命令验证内存管理的可用性与正确性
+- 理解操作系统进程管理的原理
+- 实现 ZJUNIX 的进程管理模块
+- 编写代码测试进程管理模块的可用性与正确性
 
 ## License
 

@@ -125,7 +125,7 @@ void init_ps2() {
     PS2_PHY[1] = -1;  // Enable ps/2 interrupt
 }
 
-void ps2_handler(unsigned int status, unsigned int cause, unsigned int* sp) {
+void ps2_handler(unsigned int status, unsigned int cause, context* pt_context) {
     unsigned int ps2_ctrl_reg;
     unsigned int ps2_data_reg;
     ps2_ctrl_reg = PS2_PHY[1];
