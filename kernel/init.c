@@ -55,7 +55,7 @@ void init_kernel() {
     init_buddy();
     log(LOG_OK, "Buddy.");
     init_slab();
-    log(LOG_OK, "Slub.");
+    log(LOG_OK, "Slab.");
     log(LOG_END, "Memory Modules.");
     // File system
     log(LOG_START, "File System.");
