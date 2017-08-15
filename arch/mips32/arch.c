@@ -19,4 +19,3 @@ unsigned int* const VGA_MODE = (unsigned int*)0xbfc09024;        // enable graph
 
 // kernel sp
 volatile unsigned int kernel_sp = 0x81000000;
-
