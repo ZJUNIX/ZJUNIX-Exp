@@ -19,3 +19,7 @@ unsigned int* const VGA_MODE = (unsigned int*)0xbfc09024;        // enable graph
 
 // kernel sp
 volatile unsigned int kernel_sp = 0x81000000;
+
+unsigned int get_phymm_size() {
+    return MACHINE_MMSIZE;
+}

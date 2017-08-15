@@ -2,6 +2,9 @@
 #include <driver/ps2.h>
 #include <driver/sd.h>
 #include <driver/vga.h>
+#include <zjunix/bootmm.h>
+#include <zjunix/buddy.h>
+#include <zjunix/slab.h>
 #include <zjunix/time.h>
 #include <zjunix/utils.h>
 
@@ -86,10 +89,10 @@ void parse_cmd() {
     } else if (kernel_strcmp(ps_buffer, "sdwi") == 0) {
         for (i = 0; i < 512; i++)
             sd_buffer[i] = i;
-        sd_write_sector_blocking(7, sd_buffer);
+        sd_write_block(sd_buffer, 7, 1);
         kernel_puts("sdwi\n", 0xfff, 0);
     } else if (kernel_strcmp(ps_buffer, "sdr") == 0) {
-        sd_read_sector_blocking(7, sd_buffer);
+        sd_read_block(sd_buffer, 7, 1);
         for (i = 0; i < 512; i++) {
             kernel_printf("%d ", sd_buffer[i]);
         }
@@ -98,8 +101,13 @@ void parse_cmd() {
         for (i = 0; i < 512; i++) {
             sd_buffer[i] = 0;
         }
-        sd_write_sector_blocking(7, sd_buffer);
+        sd_write_block(sd_buffer, 7, 1);
         kernel_puts("sdwz\n", 0xfff, 0);
+    } else if (kernel_strcmp(ps_buffer, "mminfo") == 0) {
+        bootmap_info("bootmm");
+        buddy_info();
+    } else if (kernel_strcmp(ps_buffer, "mmtest") == 0) {
+        kernel_printf("kmalloc : %x, size = 1KB\n", kmalloc(1024));
     } else {
         kernel_puts(ps_buffer, 0xfff, 0);
         kernel_puts(": command not found\n", 0xfff, 0);

@@ -44,4 +44,6 @@ extern volatile unsigned int kernel_sp;
 //  [18:16]: baud rate(RW)
 //  [31]:  Interrupt enable(RW)
 
+unsigned int get_phymm_size();
+
 #endif

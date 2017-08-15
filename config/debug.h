@@ -13,8 +13,8 @@
 // boot mem
 // #define BOOTMM_DEBUG
 
-// slub: display debug info
-// #define SLUB_DEBUG
+// slab: display debug info
+// #define SLAB_DEBUG
 
 // myvi: display debug info
 // #define MYVI_DEBUG

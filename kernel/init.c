@@ -4,7 +4,10 @@
 #include <exc.h>
 #include <init_place_holder.h>
 #include <intr.h>
+#include <zjunix/bootmm.h>
+#include <zjunix/buddy.h>
 #include <zjunix/log.h>
+#include <zjunix/slab.h>
 #include <zjunix/syscall.h>
 #include <zjunix/time.h>
 #include "../usr/ps.h"
@@ -34,7 +37,12 @@ void init_kernel() {
     init_time();
     // Memory management
     log(LOG_START, "Memory Modules.");
-    init_mem();
+    init_bootmm();
+    log(LOG_OK, "Bootmem.");
+    init_buddy();
+    log(LOG_OK, "Buddy.");
+    init_slab();
+    log(LOG_OK, "Slub.");
     log(LOG_END, "Memory Modules.");
     // File system
     log(LOG_START, "File System.");

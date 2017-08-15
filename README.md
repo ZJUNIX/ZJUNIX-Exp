@@ -1,13 +1,12 @@
-# ZJUNIX 实验4 基础驱动程序设计
+# ZJUNIX 实验5 内存管理
 
-![ZJUNIX Experiments](https://img.shields.io/badge/ZJUNIX-Experiment4-blue.svg)
+![ZJUNIX Experiments](https://img.shields.io/badge/ZJUNIX-Experiment5-blue.svg)
 
 ## 实验目的
 
-- 了解基础输入输出设备类型
-- 设计基本的输入输出设备驱动，包括 PS2 , VGA 等
-- 基于设备驱动实现基本输入输出功能
-- 实现一个基础版的 shell
+- 理解操作系统内存管理的原理
+- 实现 ZJUNIX 的内存管理模块
+- 编写测试命令验证内存管理的可用性与正确性
 
 ## License
 
