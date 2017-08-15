@@ -1,0 +1,33 @@
+# include tools configurations
+include $(CONFIG_PATH)/tools.conf
+include $(CONFIG_PATH)/flags.conf
+
+# recursive make and clean
+.PHONY: build-subdirs
+build-subdirs: $(DIRS)
+
+.PHONY: $(DIRS)
+$(DIRS):
+	@$(MAKE) $(MAKEFLAG) -C $@ all
+	
+.PHONY: clean-subdirs
+clean-subdirs:
+	@for dir in $(DIRS); do \
+		$(MAKE) $(MAKEFLAG) -C $$dir clean; \
+	done
+
+.PHONY: format
+FTFILES := 
+format: 
+	$(eval FTFILES += $(call rwildcard,$(DIRS),*.c *.h))
+	@echo FT srcs-and-headers
+	@$(FT) $(FTFLAG) $(FTFILES)
+
+# dependencies
+%.o: %.c
+	@echo -e "\t" CC $< "\t" -o $@
+	@$(CC) $(CCFLAG) $< -o $@
+
+%.o: %.s
+	@echo -e "\t" AS $< "\t" -o $@
+	@$(AS) $(ASFLAG) $< -o $@
