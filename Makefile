@@ -1,5 +1,5 @@
 # source dirs and current dir's objects
-DIRS := arch kernel
+DIRS := arch kernel utils usr
 OBJS := 
 
 # compile options
