@@ -41,7 +41,6 @@ int disable_interrupts() {
     return old;
 }
 
-
 void do_interrupts(unsigned int status, unsigned int cause, context* pt_context) {
     int i;
     int index = cause >> 8;

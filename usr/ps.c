@@ -4,9 +4,11 @@
 #include <driver/vga.h>
 #include <zjunix/bootmm.h>
 #include <zjunix/buddy.h>
+#include <zjunix/fs/fat.h>
 #include <zjunix/slab.h>
 #include <zjunix/time.h>
 #include <zjunix/utils.h>
+#include "../usr/ls.h"
 
 char ps_buffer[64];
 int ps_buffer_index;
@@ -150,6 +152,12 @@ void parse_cmd() {
     } else if (kernel_strcmp(ps_buffer, "proc") == 0) {
         result = proc_demo_create();
         kernel_printf("proc return with %d\n", result);
+    } else if (kernel_strcmp(ps_buffer, "cat") == 0) {
+        result = fs_cat(param);
+        kernel_printf("cat return with %d\n", result);
+    } else if (kernel_strcmp(ps_buffer, "ls") == 0) {
+        result = ls(param);
+        kernel_printf("ls return with %d\n", result);
     } else {
         kernel_puts(ps_buffer, 0xfff, 0);
         kernel_puts(": command not found\n", 0xfff, 0);
