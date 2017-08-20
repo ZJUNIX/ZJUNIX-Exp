@@ -42,7 +42,8 @@ objcopy: $(ELF)
 
 .PHONY: disassembly
 disassembly: $(ELF)
-	$(OD) -S $(ELF) > $(DISASSEMBLY)
+	@echo -e "\t" OD -S $(ELF) > $(DISASSEMBLY)
+	@$(OD) -S $(ELF) > $(DISASSEMBLY)
 
 .PHONY: clean
 clean: clean-subdirs

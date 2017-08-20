@@ -15,14 +15,6 @@
 char ps_buffer[64];
 int ps_buffer_index;
 
-void test_syscall4() {
-    asm volatile(
-        "li $a0, 0x00ff\n\t"
-        "li $v0, 4\n\t"
-        "syscall\n\t"
-        "nop\n\t");
-}
-
 void test_proc() {
     unsigned int timestamp;
     unsigned int currTime;
@@ -115,8 +107,6 @@ void parse_cmd() {
         char buf[10];
         get_time(buf, sizeof(buf));
         kernel_printf("%s\n", buf);
-    } else if (kernel_strcmp(ps_buffer, "syscall4") == 0) {
-        test_syscall4();
     } else if (kernel_strcmp(ps_buffer, "sdwi") == 0) {
         for (i = 0; i < 512; i++)
             sd_buffer[i] = i;
