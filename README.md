@@ -1,6 +1,6 @@
 # ZJUNIX 实验0 代码组织结构
 
-![ZJUNIX Experiments](https://img.shields.io/badge/ZJUNIX-Experiment1-blue.svg)
+![ZJUNIX Experiments](https://img.shields.io/badge/ZJUNIX-Experiment0-blue.svg)
 
 ## 实验目的
 
