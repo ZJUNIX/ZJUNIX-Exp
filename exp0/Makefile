@@ -1,5 +1,5 @@
 # source dirs and current dir's objects
-DIRS := arch kernel utils usr
+DIRS := kernel
 OBJS := 
 
 # compile options
@@ -65,8 +65,6 @@ install: default
 .PHONY: find-all-objs
 find-all-objs:
 	$(eval ALL_OBJS += $(call rwildcard,$(DIRS),*.o))
-	@$(eval ALL_OBJS=$(subst arch/$(ARCH)/start.o,,$(ALL_OBJS)))
-	@$(eval ALL_OBJS = arch/$(ARCH)/start.o $(ALL_OBJS))
 
 .PHONY: show-info
 show-info:
