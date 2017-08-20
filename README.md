@@ -1,12 +1,11 @@
-# ZJUNIX 实验1 代码组织结构
+# ZJUNIX 实验1 完整内核编译
 
 ![ZJUNIX Experiments](https://img.shields.io/badge/ZJUNIX-Experiment1-blue.svg)
 
 ## 实验目的
 
-- 理解 Makefile 的含义与组成
-- 理解工程目录的组织结构
-- 学习使用 make 工具
+- 理解工程目录结构
+- 编译完整内核并运行
 
 ## License
 
